@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>1.message and computed</h2>
+    <div>{{ message }}</div>
+    <div>翻转值为{{ reverseValue }}</div>
+    <h2>2.v-if v-bind</h2>
+    <div v-if="show" v-bind:title="bindMessage">悬挂查看title</div>
+    <h2>3.事件</h2>
+    <button v-on:click="toggleShow">点击切换v-if v-bind条显示状态</button>
+    <h2>4.v-model</h2>
+    <div>{{ inputValue }} <span :style="{color: 'red'}">// 不用v-model的话输入得另外添加事件进行数据修改</span></div>
+    <input v-model="inputValue" />
+    <input :value="inputValue" @input='input' />
+    <check-box v-model="checkValue"></check-box>
+    <div>5.组件</div>
+    <ol>
+      <Item v-for="item in array" v-bind:todo="item" title="same" />
+    </ol>
+    <h2>6.v-html不推荐，防止xss攻击</h2>
+    <p v-html="rawhtml">abcd</p>
+    <div>
+      <h2>7.响应式属性添加</h2>
+      <div>name: {{ obj.name }} age: {{ obj.age }} favoriteColor: {{ obj.favoriteColor }}</div>
+    </div>
+    <div>
+      <h2>7.表单绑定</h2>
+      <div>
+        <input type="checkbox" id="ip1" v-model="checkboxArr" value="ip1" />
+        <label for="ip1">ip1</label>
+        <input type="checkbox" id="ip2" v-model="checkboxArr" value="ip2" />
+        <label for="ip2">ip2</label>
+        <input type="checkbox" id="ip3" v-model="checkboxArr" value="ip3" />
+        <label for="ip3">ip3</label>
+
+      </div>
+    </div>
+    <div>
+      <h2>8.事件传递emit</h2>
+      <div :style='{ fontSize: `${mainFontSize}em` }'>
+        <h5>子元素触发父元素上方法，改变父元素数据</h5>
+        <emit-btn @enlarge="mainFontSize++" />
+      </div>
+      <div :style='{ fontSize: `${mainFontSize}em` }'>
+        <h5>父元素传递方法至子元素，子元素调用修改父元素数据</h5>
+        <!-- 直接在DOM中使用组件，组件名必须是全小写字母并有'-'的形式 -->
+        <emit-btn2 :enlarge="enlargeFont" />
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
